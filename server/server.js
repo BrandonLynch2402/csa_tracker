@@ -1,20 +1,18 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const Student = require('./models/Student')
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 mongoose
   .connect(require('./config/keys').mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('database connected'))
   .catch(err => console.log(err))
-
-app.get('/', (req, res) => {
-  res.send('working')
-})
 
 // STUDENT INFORMATION ENDPOINTS
 // get all student information
@@ -51,7 +49,7 @@ app.put('/update_student', async (req, res) => {
 
 // ENTRIES ENDPOINTS
 // get all entries by a student's number
-app.get('/get_entries', async (req, res) => {
+app.post('/get_entries/', async (req, res) => {
   const student = await Student.find({ "student_info.number": req.body.number })
   res.send(student[0].entries)
 })

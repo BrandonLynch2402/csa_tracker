@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/main.css">
+  <title>Electron</title>
+</head>
+<body>
+  <div class="container student-list">
+    <h1>Dashboard</h1>
+    <button class="btn btn-primary btn--student mb-3">Add Student</button>
+    <div class="card mb-1">
+      <div class="card-body row">
+        <p class="col">Name</p>
+        <p class="col">Number</p>
+        <p class="col">Grade</p>
+        <p class="col">Total Hours</p>
+      </div>
+    </div>
+  </div>
+  <div class="container container--entries">
+    <h1>Entries</h1>
+    <button class="btn btn-primary btn--entry mb-3">Add Entry</button>
+    <button class="btn btn-dark btn--back mb-3">Back</button>
+    <div class="card mb-1">
+      <div class="card-body row">
+        <p class="col">Date</p>
+        <p class="col">Start Time</p>
+        <p class="col">End Time</p>
+        <p class="col">Hours</p>
+        <p class="col">Activity</p>
+      </div>
+    </div>
+    <div class="entry-list"></div>
+  </div>
+  <script src="../js/main.js"></script>
+</body>
+</html>

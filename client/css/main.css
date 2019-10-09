@@ -1,0 +1,8 @@
+.card--info:hover {
+  cursor: pointer;
+  color: #00aeff;
+}
+
+.container--entries {
+  display: none;
+}
