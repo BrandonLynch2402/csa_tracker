@@ -6,3 +6,7 @@
 .container--entries {
   display: none;
 }
+
+.container--student-form {
+  display: none;
+}

@@ -20,8 +20,9 @@
     </div>
   </div>
   <div class="container container--entries">
-    <h1>Entries</h1>
+    <h1 class="entry-header">Entries</h1>
     <button class="btn btn-primary btn--entry mb-3">Add Entry</button>
+    <button class="btn btn-info btn--edit-student mb-3">Edit Student Information</button>
     <button class="btn btn-dark btn--back mb-3">Back</button>
     <div class="card mb-1">
       <div class="card-body row">
@@ -33,6 +34,21 @@
       </div>
     </div>
     <div class="entry-list"></div>
+  </div>
+  <div class="container container--student-form">
+    <h1>Add Student</h1>
+    <button class="btn btn-dark btn--student-back mb-3">Back</button>
+    <div class="from-group student-form">
+      <label for="studentForm">Name</label>
+      <input type="text" name="name" id="name" placeholder="Brandon Lynch" class="form-control mb-1">
+
+      <label for="studentForm">Number</label>
+      <input type="text" name="number" id="number" placeholder="753159" class="form-control mb-1">
+
+      <label for="studentForm">Grade</label>
+      <input type="text" name="grade" id="grade" placeholder="11" class="form-control mb-1">
+    </div>
+    <input type="button" value="Submit" id="studentSubmit" class="btn btn-primary mt-3">
   </div>
   <script src="../js/main.js"></script>
 </body>

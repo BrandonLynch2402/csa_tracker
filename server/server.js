@@ -21,7 +21,7 @@ app.get('/get_students', async (req, res) => {
 })
 
 // get a student's information from their student number
-app.get('/get_student', async (req, res) => {
+app.post('/get_student', async (req, res) => {
   res.send(await Student.find({ "student_info.number": req.body.number }))
 })
 
@@ -35,7 +35,7 @@ app.post('/add_student', (req, res) => {
     }
   })
   newStudent.save()
-  res.send('saved')
+  // res.send('saved')
 })
 
 // update a student's information by their student number
@@ -49,7 +49,7 @@ app.put('/update_student', async (req, res) => {
 
 // ENTRIES ENDPOINTS
 // get all entries by a student's number
-app.post('/get_entries/', async (req, res) => {
+app.post('/get_entries', async (req, res) => {
   const student = await Student.find({ "student_info.number": req.body.number })
   res.send(student[0].entries)
 })
