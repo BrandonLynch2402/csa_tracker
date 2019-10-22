@@ -47,6 +47,12 @@ app.put('/update_student', async (req, res) => {
   res.send('student information updated');
 })
 
+// delete a student by their student number
+app.delete('/delete_student', async (req, res) => {
+  await Student.deleteOne({ "student_info.number": req.body.number })
+  res.send('deletion successful')
+})
+
 // ENTRIES ENDPOINTS
 // get all entries by a student's number
 app.post('/get_entries', async (req, res) => {

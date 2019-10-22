@@ -10,3 +10,15 @@
 .container--student-form {
   display: none;
 }
+
+.container--entry-form {
+  display: none;
+}
+
+.container--edit-student-form {
+  display: none;
+}
+
+.alert {
+  display: none;
+}

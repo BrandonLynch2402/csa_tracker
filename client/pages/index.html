@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/main.css">
-  <title>Electron</title>
+  <title>Community Service Award Tracker</title>
 </head>
 <body>
+  <!-- Main page: list of all students -->
   <div class="container student-list">
     <h1>Dashboard</h1>
     <button class="btn btn-primary btn--student mb-3">Add Student</button>
@@ -19,36 +20,83 @@
       </div>
     </div>
   </div>
+  <!-- Page for entries of each student -->
   <div class="container container--entries">
     <h1 class="entry-header">Entries</h1>
     <button class="btn btn-primary btn--entry mb-3">Add Entry</button>
     <button class="btn btn-info btn--edit-student mb-3">Edit Student Information</button>
+    <button class="btn btn-danger btn--delete-student mb-3">Delete</button>
     <button class="btn btn-dark btn--back mb-3">Back</button>
+    <div class="alert alert-danger alert--delete-student" role="alert">
+      Are you sure you would like to delete this student?
+      <button class="btn btn-danger btn--confirm-student-delete">Yes</button>
+      <button class="btn btn-secondary btn--deny-student-delete">No</button>
+    </div>
     <div class="card mb-1">
       <div class="card-body row">
         <p class="col">Date</p>
         <p class="col">Start Time</p>
         <p class="col">End Time</p>
         <p class="col">Hours</p>
-        <p class="col">Activity</p>
+        <p class="col">Category</p>
       </div>
     </div>
     <div class="entry-list"></div>
   </div>
+  <!-- New Student Form -->
   <div class="container container--student-form">
-    <h1>Add Student</h1>
+    <h1>New Student</h1>
     <button class="btn btn-dark btn--student-back mb-3">Back</button>
     <div class="from-group student-form">
       <label for="studentForm">Name</label>
       <input type="text" name="name" id="name" placeholder="Brandon Lynch" class="form-control mb-1">
-
       <label for="studentForm">Number</label>
       <input type="text" name="number" id="number" placeholder="753159" class="form-control mb-1">
-
       <label for="studentForm">Grade</label>
-      <input type="text" name="grade" id="grade" placeholder="11" class="form-control mb-1">
+      <select name="grade" id="grade" class="form-control mb-1">
+        <option disabled selected value></option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
     </div>
     <input type="button" value="Submit" id="studentSubmit" class="btn btn-primary mt-3">
+  </div>
+  <!-- Edit Student Form -->
+  <div class="container container--edit-student-form">
+    <h1>Edit Student</h1>
+    <button class="btn btn-dark btn--edit-student-back mb-3">Back</button>
+    <div class="from-group edit-student-form">
+      <label for="editStudentForm">Name</label>
+      <input type="text" name="name" id="editName" class="form-control mb-1">
+      <label for="editStudentForm">Number</label>
+      <input type="text" name="number" id="editNumber" class="form-control mb-1">
+      <label for="editStudentForm">Grade</label>
+      <select name="grade" id="editGrade" class="form-control mb-1">
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+    </div>
+    <input type="button" value="Submit" id="editStudentSubmit" class="btn btn-primary mt-3">
+  </div>
+  <!-- New Entry Form -->
+  <div class="container container--entry-form">
+    <h1>New Entry</h1>
+    <button class="btn btn-dark btn--entry-back mb-3">Back</button>
+    <div class="from-group entry-form">
+      <label for="entryForm">Category</label>
+      <input type="text" name="category" id="category" placeholder="Tutoring" class="form-control mb-1">
+      <label for="entryForm">Date</label>
+      <input type="date" name="date" id="date" class="form-control mb-1">
+      <label for="entryForm">Start Time</label>
+      <input type="time" name="start-time" id="start-time" class="form-control mb-1">
+      <label for="entryForm">End Time</label>
+      <input type="time" name="end-time" id="end-time" class="form-control mb-1">
+    </div>
+    <input type="button" value="Submit" id="entrySubmit" class="btn btn-primary mt-3">
   </div>
   <script src="../js/main.js"></script>
 </body>

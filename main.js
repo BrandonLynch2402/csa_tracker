@@ -12,7 +12,6 @@ function createWindow() {
     }
   })
   win.loadFile('client/pages/index.html')
-  win.webContents.openDevTools()
   win.on('closed', () => {
     win = null
   })
