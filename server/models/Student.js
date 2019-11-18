@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const StudentSchema = new Schema({
   student_info: Object,
   entries: Array,
+  categories: Array,
   total_hours: {
     type: Number,
     default: 0

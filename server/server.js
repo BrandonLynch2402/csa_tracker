@@ -20,7 +20,7 @@ app.get('/get_students', async (req, res) => {
   res.send(await Student.find())
 })
 
-// get a student's information from their student number
+// get student information
 app.post('/get_student', async (req, res) => {
   res.send(await Student.find({ "student_info.number": req.body.number }))
 })
@@ -35,38 +35,89 @@ app.post('/add_student', (req, res) => {
     }
   })
   newStudent.save()
-  // res.send('saved')
 })
 
-// update a student's information by their student number
+// update student information
 app.put('/update_student', async (req, res) => {
   await Student.updateOne(
     { "student_info.number": req.body.number },
     { student_info: req.body.student_info }
   )
-  res.send('student information updated');
+  res.send('student information updated')
 })
 
-// delete a student by their student number
+// delete student
 app.delete('/delete_student', async (req, res) => {
   await Student.deleteOne({ "student_info.number": req.body.number })
-  res.send('deletion successful')
+  res.send('student deleted')
 })
 
 // ENTRIES ENDPOINTS
-// get all entries by a student's number
+// get entries
 app.post('/get_entries', async (req, res) => {
   const student = await Student.find({ "student_info.number": req.body.number })
   res.send(student[0].entries)
 })
 
-// add a new entry by a student's number
+// add new entry
 app.post('/add_entry', async (req, res) => {
   await Student.updateOne(
     { "student_info.number": req.body.number },
     { $push: { entries: req.body.entry } }
   )
   res.send('entry added')
+})
+
+// update entry list
+app.post('/update_entry', async (req, res) => {
+  await Student.updateOne(
+    { "student_info.number": req.body.number },
+    { $set: { entries: req.body.entries } }
+  )
+  res.send('entry updated')
+})
+
+// delete entry
+app.post('/delete_entry', async (req, res) => {
+  await Student.updateOne(
+    { "student_info.number": req.body.number },
+    { $pull: { entries: req.body.entry } }
+  )
+  res.send('entry deleted')
+})
+
+// CATEGORIES ENDPOINTS
+// get categories
+app.post('/get_categories', async (req, res) => {
+  const student = await Student.find({ "student_info.number": req.body.number })
+  res.send(student[0].categories)
+})
+
+// add new category
+app.post('/add_category', async (req, res) => {
+  await Student.updateOne(
+    { "student_info.number": req.body.number },
+    { $push: { categories: req.body.category } }
+  )
+  res.send('category added')
+})
+
+// update category
+app.post('/update_category', async (req, res) => {
+  await Student.updateOne(
+    { "student_info.number": req.body.number },
+    { $set: { categories: req.body.categories } }
+  )
+  res.send('category updated')
+})
+
+// delete category
+app.post('/delete_category', async (req, res) => {
+  await Student.updateOne(
+    { "student_info.number": req.body.number },
+    { $pull: { categories: req.body.category } }
+  )
+  res.send('category deleted')
 })
 
 const PORT = 5000 || process.env.PORT

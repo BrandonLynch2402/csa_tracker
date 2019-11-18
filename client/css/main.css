@@ -22,3 +22,11 @@
 .alert {
   display: none;
 }
+
+.container--edit-entry-form {
+  display: none;
+}
+
+.container--manage-categories {
+  display: none;
+}

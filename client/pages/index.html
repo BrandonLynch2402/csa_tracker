@@ -25,13 +25,8 @@
     <h1 class="entry-header">Entries</h1>
     <button class="btn btn-primary btn--entry mb-3">Add Entry</button>
     <button class="btn btn-info btn--edit-student mb-3">Edit Student Information</button>
-    <button class="btn btn-danger btn--delete-student mb-3">Delete</button>
+    <button class="btn btn-secondary btn--category mb-3">Manage Categories</button>
     <button class="btn btn-dark btn--back mb-3">Back</button>
-    <div class="alert alert-danger alert--delete-student" role="alert">
-      Are you sure you would like to delete this student?
-      <button class="btn btn-danger btn--confirm-student-delete">Yes</button>
-      <button class="btn btn-secondary btn--deny-student-delete">No</button>
-    </div>
     <div class="card mb-1">
       <div class="card-body row">
         <p class="col">Date</p>
@@ -47,7 +42,7 @@
   <div class="container container--student-form">
     <h1>New Student</h1>
     <button class="btn btn-dark btn--student-back mb-3">Back</button>
-    <div class="from-group student-form">
+    <div class="form-group student-form">
       <label for="studentForm">Name</label>
       <input type="text" name="name" id="name" placeholder="Brandon Lynch" class="form-control mb-1">
       <label for="studentForm">Number</label>
@@ -67,7 +62,7 @@
   <div class="container container--edit-student-form">
     <h1>Edit Student</h1>
     <button class="btn btn-dark btn--edit-student-back mb-3">Back</button>
-    <div class="from-group edit-student-form">
+    <div class="form-group edit-student-form">
       <label for="editStudentForm">Name</label>
       <input type="text" name="name" id="editName" class="form-control mb-1">
       <label for="editStudentForm">Number</label>
@@ -80,15 +75,21 @@
         <option value="12">12</option>
       </select>
     </div>
+    <button class="btn btn-danger btn--delete-student mt-3">Delete</button>
     <input type="button" value="Submit" id="editStudentSubmit" class="btn btn-primary mt-3">
+    <div class="alert alert-danger alert--delete-student mt-3" role="alert">
+      Are you sure you would like to delete this student?
+      <button class="btn btn-danger btn--confirm-student-delete">Yes</button>
+      <button class="btn btn-secondary btn--deny-student-delete">No</button>
+    </div>
   </div>
   <!-- New Entry Form -->
   <div class="container container--entry-form">
     <h1>New Entry</h1>
     <button class="btn btn-dark btn--entry-back mb-3">Back</button>
-    <div class="from-group entry-form">
+    <div class="form-group entry-form">
       <label for="entryForm">Category</label>
-      <input type="text" name="category" id="category" placeholder="Tutoring" class="form-control mb-1">
+      <select name="category" id="category" class="form-control mb-1"></select>
       <label for="entryForm">Date</label>
       <input type="date" name="date" id="date" class="form-control mb-1">
       <label for="entryForm">Start Time</label>
@@ -97,6 +98,45 @@
       <input type="time" name="end-time" id="end-time" class="form-control mb-1">
     </div>
     <input type="button" value="Submit" id="entrySubmit" class="btn btn-primary mt-3">
+  </div>
+  <!-- Edit Entry Form -->
+  <div class="container container--edit-entry-form">
+    <h1>Edit Entry</h1>
+    <button class="btn btn-dark btn--edit-entry-back mb-3">Back</button>
+    <div class="form-group edit-entry-form">
+      <label for="entryForm">Category</label>
+      <input type="text" name="category" id="editCategory" placeholder="Tutoring" class="form-control mb-1">
+      <label for="entryForm">Date</label>
+      <input type="date" name="date" id="editDate" class="form-control mb-1">
+      <label for="entryForm">Start Time</label>
+      <input type="time" name="start-time" id="edit-start-time" class="form-control mb-1">
+      <label for="entryForm">End Time</label>
+      <input type="time" name="end-time" id="edit-end-time" class="form-control mb-1">
+    </div>
+    <input type="button" value="Delete" id="deleteEntry" class="btn btn-danger mt-3">
+    <input type="button" value="Submit" id="editEntrySubmit" class="btn btn-primary mt-3">
+    <div class="alert alert-danger alert--delete-entry mt-3" role="alert">
+      Are you sure you would like to delete this student?
+      <button class="btn btn-danger btn--confirm-entry-delete">Yes</button>
+      <button class="btn btn-secondary btn--deny-entry-delete">No</button>
+    </div>
+  </div>
+  
+  <!-- Manage Categories -->
+  <div class="container container--manage-categories">
+    <h1>Manage Categories</h1>
+    <button class="btn btn-dark btn--manage-categories-back mb-3">Back</button>
+    <div class="card mb-1">
+      <div class="card-body">
+        <p>Category</p>
+      </div> 
+    </div>
+    <div class="category-list"></div>
+    <div class="form-group manage-categories">
+      <label for="category" class="mt-3">New Category</label>
+      <input type="text" name="category" id="newCategory" class="form-control" placeholder="Category">
+      <input type="button" value="Submit" id="categorySubmit" class="btn btn-primary mt-3">
+    </div>
   </div>
   <script src="../js/main.js"></script>
 </body>
