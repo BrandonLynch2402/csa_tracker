@@ -120,6 +120,15 @@ app.post('/delete_category', async (req, res) => {
   res.send('category deleted')
 })
 
+// TOTAL HOURS ENDPOINTS
+// set total hours
+app.post('/set_total_hours', async (req, res) => {
+  await Student.updateOne(
+    { "student_info.number": req.body.number },
+    { total_hours: req.body.total_hours }
+  )
+})
+
 const PORT = 5000 || process.env.PORT
 
 app.listen(PORT, () => console.log('server running'))

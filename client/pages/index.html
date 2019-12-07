@@ -13,27 +13,30 @@
     <button class="btn btn-primary btn--student mb-3">Add Student</button>
     <div class="card mb-1">
       <div class="card-body row">
-        <p class="col">Name</p>
-        <p class="col">Number</p>
-        <p class="col">Grade</p>
-        <p class="col">Total Hours</p>
+        <p class="col bold">Name</p>
+        <p class="col bold">Number</p>
+        <p class="col bold">Grade</p>
+        <p class="col bold">Total Hours</p>
       </div>
     </div>
   </div>
   <!-- Page for entries of each student -->
   <div class="container container--entries">
     <h1 class="entry-header">Entries</h1>
-    <button class="btn btn-primary btn--entry mb-3">Add Entry</button>
-    <button class="btn btn-info btn--edit-student mb-3">Edit Student Information</button>
-    <button class="btn btn-secondary btn--category mb-3">Manage Categories</button>
-    <button class="btn btn-dark btn--back mb-3">Back</button>
+    <nav class="mb-3">
+      <button class="btn btn-dark btn--back">Back</button>
+      <button class="btn btn-primary btn--entry">Add Entry</button>
+      <button class="btn btn-outline-primary btn--edit-student">Edit Student Information</button>
+      <button class="btn btn-outline-primary btn--category">Manage Categories</button>
+      <button class="btn btn-outline-primary btn--print-options">Print Options</button>
+    </nav>
     <div class="card mb-1">
       <div class="card-body row">
-        <p class="col">Date</p>
-        <p class="col">Start Time</p>
-        <p class="col">End Time</p>
-        <p class="col">Hours</p>
-        <p class="col">Category</p>
+        <p class="col bold">Date</p>
+        <p class="col bold">Start Time</p>
+        <p class="col bold">End Time</p>
+        <p class="col bold">Hours</p>
+        <p class="col bold">Category</p>
       </div>
     </div>
     <div class="entry-list"></div>
@@ -46,16 +49,17 @@
       <label for="studentForm">Name</label>
       <input type="text" name="name" id="name" placeholder="Brandon Lynch" class="form-control mb-1">
       <label for="studentForm">Number</label>
-      <input type="text" name="number" id="number" placeholder="753159" class="form-control mb-1">
+      <input type="number" name="number" id="number" placeholder="753159" class="form-control mb-1">
       <label for="studentForm">Grade</label>
       <select name="grade" id="grade" class="form-control mb-1">
-        <option disabled selected value></option>
+        <option disabled selected></option>
         <option value="9">9</option>
         <option value="10">10</option>
         <option value="11">11</option>
         <option value="12">12</option>
       </select>
     </div>
+    <div class="alert alert-danger" id="new-student-alert"></div>
     <input type="button" value="Submit" id="studentSubmit" class="btn btn-primary mt-3">
   </div>
   <!-- Edit Student Form -->
@@ -75,6 +79,7 @@
         <option value="12">12</option>
       </select>
     </div>
+    <div class="alert alert-danger" id="edit-student-alert"></div>
     <button class="btn btn-danger btn--delete-student mt-3">Delete</button>
     <input type="button" value="Submit" id="editStudentSubmit" class="btn btn-primary mt-3">
     <div class="alert alert-danger alert--delete-student mt-3" role="alert">
@@ -89,7 +94,9 @@
     <button class="btn btn-dark btn--entry-back mb-3">Back</button>
     <div class="form-group entry-form">
       <label for="entryForm">Category</label>
-      <select name="category" id="category" class="form-control mb-1"></select>
+      <select name="category" id="category" class="form-control mb-1">
+        <option selected disabled></option>
+      </select>
       <label for="entryForm">Date</label>
       <input type="date" name="date" id="date" class="form-control mb-1">
       <label for="entryForm">Start Time</label>
@@ -97,6 +104,7 @@
       <label for="entryForm">End Time</label>
       <input type="time" name="end-time" id="end-time" class="form-control mb-1">
     </div>
+    <div class="alert alert-danger" id="new-entry-alert"></div>
     <input type="button" value="Submit" id="entrySubmit" class="btn btn-primary mt-3">
   </div>
   <!-- Edit Entry Form -->
@@ -105,7 +113,7 @@
     <button class="btn btn-dark btn--edit-entry-back mb-3">Back</button>
     <div class="form-group edit-entry-form">
       <label for="entryForm">Category</label>
-      <input type="text" name="category" id="editCategory" placeholder="Tutoring" class="form-control mb-1">
+      <select name="category" id="editCategory" class="form-control mb-1"></select>
       <label for="entryForm">Date</label>
       <input type="date" name="date" id="editDate" class="form-control mb-1">
       <label for="entryForm">Start Time</label>
@@ -113,6 +121,7 @@
       <label for="entryForm">End Time</label>
       <input type="time" name="end-time" id="edit-end-time" class="form-control mb-1">
     </div>
+    <div class="alert alert-danger" id="update-entry-alert"></div>
     <input type="button" value="Delete" id="deleteEntry" class="btn btn-danger mt-3">
     <input type="button" value="Submit" id="editEntrySubmit" class="btn btn-primary mt-3">
     <div class="alert alert-danger alert--delete-entry mt-3" role="alert">
@@ -121,13 +130,12 @@
       <button class="btn btn-secondary btn--deny-entry-delete">No</button>
     </div>
   </div>
-  
   <!-- Manage Categories -->
   <div class="container container--manage-categories">
     <h1>Manage Categories</h1>
     <button class="btn btn-dark btn--manage-categories-back mb-3">Back</button>
     <div class="card mb-1">
-      <div class="card-body">
+      <div class="card-body bold">
         <p>Category</p>
       </div> 
     </div>
@@ -135,9 +143,48 @@
     <div class="form-group manage-categories">
       <label for="category" class="mt-3">New Category</label>
       <input type="text" name="category" id="newCategory" class="form-control" placeholder="Category">
+      <div class="alert alert-danger mt-3" id="manage-categories-alert"></div>
       <input type="button" value="Submit" id="categorySubmit" class="btn btn-primary mt-3">
     </div>
   </div>
+  <!-- Print Options -->
+  <div class="container container--print-options">
+    <h1>Print Options</h1>
+    <button class="btn btn-dark btn--print-options-back mb-3">Back</button>
+    <h5>Period</h5>
+    <div class="form-check">
+      <input class="form-check-input" id="week" type="radio" name="period" value="week">
+      <label for="week" class="form-check-label">Week</label>
+    </div>
+    <div class="form-check mb-3">
+      <input class="form-check-input" id="month" type="radio" name="period" value="month">
+      <label for="month" class="form-check-label">Month</label>
+    </div>
+    <h5>Type</h5>
+    <div class="form-check">
+      <input class="form-check-input" id="total" type="radio" name="type" value="total">
+      <label for="total" class="form-check-label">Total hours only</label>
+    </div>
+    <div class="form-check mb-3">
+      <input class="form-check-input" id="csa" type="radio" name="type" value="csa">
+      <label for="total" class="form-check-label">Community Service Award program categories and hours</label>
+    </div>
+    <h5>Time (week/month)</h5>
+    <div class="form-group">
+      <input type="date" name="print-date" id="print-date" class="form-control">
+    </div>
+    <div class="alert alert-danger" id="print-page-alert"></div>
+    <button type="submit" class="btn btn-primary btn--print-submit">Submit</button>
+  </div>
+  <!-- Printed Information -->
+  <div class="container container--print-page">
+    <h1 id="print-student-name"></h1>
+    <p id="print-info"></p>
+    <button class="btn btn-dark btn--print-page-back mb-3">Back</button>
+    <div class="print-page-list"></div>
+    <button class="btn btn-primary mt-3" id="print">Print</button>
+  </div>
   <script src="../js/main.js"></script>
+  <script src="../js/print.js"></script>
 </body>
 </html>

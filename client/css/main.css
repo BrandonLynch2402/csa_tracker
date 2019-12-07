@@ -3,6 +3,10 @@
   color: #00aeff;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .container--entries {
   display: none;
 }
@@ -28,5 +32,13 @@
 }
 
 .container--manage-categories {
+  display: none;
+}
+
+.container--print-options {
+  display: none;
+}
+
+.container--print-page {
   display: none;
 }
