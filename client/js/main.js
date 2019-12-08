@@ -1,5 +1,4 @@
 const axios = require('axios')
-// const calender = require('./calender')
 
 const calender = {
   0: 31,
@@ -28,7 +27,6 @@ let categoryList = document.querySelector('.category-list')
 let printOptionsContainer = document.querySelector('.container--print-options')
 
 let currentStudentNum = 0
-// let entryLength = 0
 let entryInfo = {}
 let entryIndex = 0
 let currentEntryID = ''
@@ -54,6 +52,12 @@ document.querySelector('.btn--back').addEventListener('click', () => {
 document.querySelector('.btn--student-back').addEventListener('click', () => {
   studentList.style.display = 'block'
   studentFormContainer.style.display = 'none'
+
+  newStudentAlert.style.display = 'none'
+
+  nameInp.value = ''
+  numberInp.value = ''
+  gradeInp.value = ''
 })
 
 // Add student page and functionality
@@ -66,6 +70,8 @@ const nameInp = document.querySelector('#name')
 const numberInp = document.querySelector('#number')
 const gradeInp = document.querySelector('#grade')
 const submitInp = document.querySelector('#studentSubmit')
+
+const newStudentAlert = document.querySelector('#new-student-alert')
 
 let name = ""
 let number = 0
@@ -89,13 +95,13 @@ submitInp.addEventListener('click', async () => {
   const res = await axios.post('http://localhost:5000/get_student', { number })
 
   if (!name || !number || !grade) {
-    const newStudentAlert = document.querySelector('#new-student-alert')
     newStudentAlert.innerHTML = 'Please fill out all fields.'
     return newStudentAlert.style.display = 'block'
   }
 
   if (res.data.length > 0) {
-    return console.log('student number already exists')
+    newStudentAlert.innerHTML = 'student number already exists'
+    return newStudentAlert.style.display = 'block'
   }
 
   createCard({
@@ -167,8 +173,6 @@ function createCard(data) {
     const res = await axios.post('http://localhost:5000/get_entries',
     { number: parseInt(card.id) }
     )
-
-    // entryLength = res.data.length
 
     studentList.style.display = 'none'
     entryContainer.style.display = 'block'
@@ -260,6 +264,13 @@ document.querySelector('.btn--entry-back').addEventListener('click', () => {
   entryFormContainer.style.display = 'none'
   entryContainer.style.display = 'block'
   categoryInp.innerHTML = '<option disabled selected></option>'
+
+  newEntryAlert.style.display = 'none'
+
+  categoryInp.value = ''
+  dateInp.value = ''
+  startTimeInp.value = ''
+  endTimeInp.value = ''
 })
 
 const categoryInp = document.querySelector('#category')
@@ -267,6 +278,8 @@ const dateInp = document.querySelector('#date')
 const startTimeInp = document.querySelector('#start-time')
 const endTimeInp = document.querySelector('#end-time')
 const entrySubmit = document.querySelector('#entrySubmit')
+
+const newEntryAlert = document.querySelector('#new-entry-alert')
 
 let category
 let date
@@ -292,7 +305,7 @@ endTimeInp.addEventListener('change', e => {
 })
 
 entrySubmit.addEventListener('click', async () => {
-  const newEntryAlert = document.querySelector('#new-entry-alert')
+  // const newEntryAlert = document.querySelector('#new-entry-alert')
 
   const entries = await axios.post('http://localhost:5000/get_entries', { number: parseInt(currentStudentNum) })
 
@@ -318,8 +331,6 @@ entrySubmit.addEventListener('click', async () => {
   }
   
   entryID = (currentStudentNum + start_time + end_time + date).replace(/\D/g,'')
-
-  // entryLength += 1
   
   const currentEntryList = document.getElementById(entryList.id)
 
@@ -449,13 +460,13 @@ document.querySelector('.btn--edit-student').addEventListener('click', () => {
     case '12':
       editGradeInp.selectedIndex = '3'
       break
-    }
-  })
+  }
+})
+
+const editStudentAlert = document.querySelector('#edit-student-alert')
   
 document.querySelector('#editStudentSubmit').addEventListener('click', async () => {
   const res = await axios.post('http://localhost:5000/get_student', { number:  parseInt(editNumberInp.value) })
-  
-  const editStudentAlert = document.querySelector('#edit-student-alert')
 
   if (!editNameInp.value || !editNumberInp.value) {
     editStudentAlert.style.display = 'block'
@@ -496,6 +507,8 @@ document.querySelector('#editStudentSubmit').addEventListener('click', async () 
 document.querySelector('.btn--edit-student-back').addEventListener('click', () => {
   editstudentFormContainer.style.display = 'none'
   entryContainer.style.display = 'block'
+
+  editStudentAlert.style.display = 'none'
 })
 
 document.querySelector('.btn--delete-student').addEventListener('click', () => {
@@ -522,11 +535,14 @@ document.querySelector('.btn--edit-entry-back').addEventListener('click', () => 
   editEntryFormContainer.style.display = 'none'
   entryContainer.style.display = 'block'
   editCategoryInp.innerHTML = ''
+
+  updateEntryAlert.style.display = 'none'
 })
 
-document.querySelector('#editEntrySubmit').addEventListener('click', async () => {
-  const updateEntryAlert = document.querySelector('#update-entry-alert')
+const updateEntryAlert = document.querySelector('#update-entry-alert')
 
+document.querySelector('#editEntrySubmit').addEventListener('click', async () => {
+  
   const entries = await axios.post('http://localhost:5000/get_entries', { number: parseInt(currentStudentNum) })
 
   const matchedEntry = entries.data.filter(entry => entry.date == editDate)
@@ -725,6 +741,9 @@ document.querySelector('.btn--manage-categories-back').addEventListener('click',
   entryContainer.style.display = 'block'
   categoryList.innerHTML = ''
   selected = false
+
+  manageCategoriesAlert.style.display = 'none'
+  document.querySelector('#newCategory').value = ''
 })
 
 let newCategory = ''
@@ -733,11 +752,11 @@ document.querySelector('#newCategory').addEventListener('keyup', (e) => {
   newCategory = e.target.value
 })
 
+const manageCategoriesAlert = document.querySelector('#manage-categories-alert')
+
 document.querySelector('#categorySubmit').addEventListener('click', async () => {
   const cat = await axios.post('http://localhost:5000/get_categories', { number: parseInt(currentStudentNum) })
 
-  const manageCategoriesAlert = document.querySelector('#manage-categories-alert')
-  
   if (!newCategory) {
     manageCategoriesAlert.style.display = 'block'
     return manageCategoriesAlert.innerHTML = 'Please fill out the field.'
@@ -921,6 +940,7 @@ const weekSelect = document.querySelector('#week')
 const monthSelect = document.querySelector('#month')
 const totalSelect = document.querySelector('#total')
 const csaSelect = document.querySelector('#csa')
+const dateSelect = document.querySelector('#print-date')
 
 let printDate
 
@@ -934,18 +954,26 @@ document.querySelector('.btn--print-options').addEventListener('click', async ()
 document.querySelector('.btn--print-options-back').addEventListener('click', () => {
   printOptionsContainer.style.display = 'none'
   entryContainer.style.display = 'block'
+
+  printPageAlert.style.display = 'none'
+
+  weekSelect.checked = false
+  monthSelect.checked = false
+  totalSelect.checked = false
+  csaSelect.checked = false
+  dateSelect.value = ''
 })
 
-document.querySelector('#print-date').addEventListener('change', e => {
+dateSelect.addEventListener('change', e => {
   printDate = e.target.value
 })
+
+const printPageAlert = document.querySelector('#print-page-alert')
 
 document.querySelector('.btn--print-submit').addEventListener('click', async () => {  
   const description = document.querySelector('#print-info')
 
-  let entries
-  
-  const printPageAlert = document.querySelector('#print-page-alert')
+  let entries  
 
   if (printDate == undefined) {
     printPageAlert.style.display = 'block'
