@@ -66,6 +66,7 @@ document.querySelector('.btn--student').addEventListener('click', () => {
   studentFormContainer.style.display = 'block'
 })
 
+// Add student information
 const nameInp = document.querySelector('#name')
 const numberInp = document.querySelector('#number')
 const gradeInp = document.querySelector('#grade')
@@ -91,9 +92,9 @@ gradeInp.addEventListener('change', () => {
 })
 
 submitInp.addEventListener('click', async () => {
-  // Validate student number
   const res = await axios.post('http://localhost:5000/get_student', { number })
-
+  
+  // VALIDATION
   if (!name || !number || !grade) {
     newStudentAlert.innerHTML = 'Please fill out all fields.'
     return newStudentAlert.style.display = 'block'
@@ -122,6 +123,7 @@ submitInp.addEventListener('click', async () => {
   await axios.post('http://localhost:5000/add_student', { name, number, grade })
 })
 
+// Edit entry information
 const editCategoryInp = document.querySelector('#editCategory')
 const editDateInp = document.querySelector('#editDate')
 const editStartTimeInp = document.querySelector('#edit-start-time')
@@ -148,6 +150,7 @@ editEndTimeInp.addEventListener('change', e => {
   editEnd_time = e.target.value
 })
 
+// Generate student cards
 function createCard(data) {
   const card = document.createElement('div')
   const div = document.createElement('div')
@@ -273,6 +276,7 @@ document.querySelector('.btn--entry-back').addEventListener('click', () => {
   endTimeInp.value = ''
 })
 
+// Add entry information
 const categoryInp = document.querySelector('#category')
 const dateInp = document.querySelector('#date')
 const startTimeInp = document.querySelector('#start-time')
@@ -305,8 +309,6 @@ endTimeInp.addEventListener('change', e => {
 })
 
 entrySubmit.addEventListener('click', async () => {
-  // const newEntryAlert = document.querySelector('#new-entry-alert')
-
   const entries = await axios.post('http://localhost:5000/get_entries', { number: parseInt(currentStudentNum) })
 
   const matchedEntry = entries.data.filter(entry => entry.date == date)
@@ -419,6 +421,7 @@ entrySubmit.addEventListener('click', async () => {
   await setTotalHours()  
 })
 
+// Calculate amount of hours from two times
 function calcHours(start, end) {
   if (start == undefined || end == undefined) {
     return undefined
@@ -463,6 +466,7 @@ document.querySelector('.btn--edit-student').addEventListener('click', () => {
   }
 })
 
+// Edit entry
 const editStudentAlert = document.querySelector('#edit-student-alert')
   
 document.querySelector('#editStudentSubmit').addEventListener('click', async () => {
@@ -504,6 +508,7 @@ document.querySelector('#editStudentSubmit').addEventListener('click', async () 
   document.querySelector('.entry-header').innerHTML = await getStudentName()
 })
 
+// Back button from edit student page
 document.querySelector('.btn--edit-student-back').addEventListener('click', () => {
   editstudentFormContainer.style.display = 'none'
   entryContainer.style.display = 'block'
@@ -511,10 +516,12 @@ document.querySelector('.btn--edit-student-back').addEventListener('click', () =
   editStudentAlert.style.display = 'none'
 })
 
+// Show delete student confirmation warning
 document.querySelector('.btn--delete-student').addEventListener('click', () => {
   document.querySelector('.alert--delete-student').style.display = 'block'
 })
 
+// Delete student
 document.querySelector('.btn--confirm-student-delete').addEventListener('click', () => {
   document.querySelector('.alert--delete-student').style.display = 'none'
   document.getElementById(currentStudentNum).remove()
@@ -527,10 +534,12 @@ document.querySelector('.btn--confirm-student-delete').addEventListener('click',
   studentList.style.display = 'block'
 })
 
+// Cancel deletion of student
 document.querySelector('.btn--deny-student-delete').addEventListener('click', () => {
   document.querySelector('.alert--delete-student').style.display = 'none'  
 })
 
+// Back button from edit entry page
 document.querySelector('.btn--edit-entry-back').addEventListener('click', () => {
   editEntryFormContainer.style.display = 'none'
   entryContainer.style.display = 'block'
@@ -539,10 +548,10 @@ document.querySelector('.btn--edit-entry-back').addEventListener('click', () => 
   updateEntryAlert.style.display = 'none'
 })
 
+// Edit entries
 const updateEntryAlert = document.querySelector('#update-entry-alert')
 
 document.querySelector('#editEntrySubmit').addEventListener('click', async () => {
-  
   const entries = await axios.post('http://localhost:5000/get_entries', { number: parseInt(currentStudentNum) })
 
   const matchedEntry = entries.data.filter(entry => entry.date == editDate)
@@ -604,6 +613,7 @@ document.querySelector('#editEntrySubmit').addEventListener('click', async () =>
 let selected = false
 let categoryData = []
 
+// Show manage categories page
 document.querySelector('.btn--category').addEventListener('click', async () => {
   entryContainer.style.display = 'none'
   manageCategoriesContainer.style.display = 'block'
@@ -736,6 +746,7 @@ document.querySelector('.btn--category').addEventListener('click', async () => {
   }
 })
 
+// Back button from manage categories page
 document.querySelector('.btn--manage-categories-back').addEventListener('click', () => {
   manageCategoriesContainer.style.display = 'none'
   entryContainer.style.display = 'block'
@@ -746,6 +757,8 @@ document.querySelector('.btn--manage-categories-back').addEventListener('click',
   document.querySelector('#newCategory').value = ''
 })
 
+
+// Add category
 let newCategory = ''
 
 document.querySelector('#newCategory').addEventListener('keyup', (e) => {
@@ -874,12 +887,12 @@ document.querySelector('#categorySubmit').addEventListener('click', async () => 
   newCategory = ''
 })
 
-// Delete Entry (1)
+// Delete entry confirmation
 document.querySelector('#deleteEntry').addEventListener('click', () => {
   document.querySelector('.alert--delete-entry').style.display = 'block'
 })
 
-// Delete Entry (2)
+// Delete entry
 document.querySelector('.btn--confirm-entry-delete').addEventListener('click', async () => {
   editCategoryInp.innerHTML = ''
 
@@ -903,11 +916,12 @@ document.querySelector('.btn--confirm-entry-delete').addEventListener('click', a
   await setTotalHours()
 })
 
-// Delete Entry (3)
+// Cancel deletion of entry
 document.querySelector('.btn--deny-entry-delete').addEventListener('click', () => {
   document.querySelector('.alert--delete-entry').style.display = 'none'
 })
 
+// Calculate student's total hours
 async function calcTotalHours() {
   const res = await axios.post('http://localhost:5000/get_entries', {
     number: parseInt(currentStudentNum)
@@ -922,6 +936,7 @@ async function calcTotalHours() {
   }
 }
 
+// Set student's total hours
 async function setTotalHours() {
   const totalHours = await calcTotalHours();
 
@@ -944,6 +959,7 @@ const dateSelect = document.querySelector('#print-date')
 
 let printDate
 
+// Show print options page
 document.querySelector('.btn--print-options').addEventListener('click', async () => {
   entryContainer.style.display = 'none'
   printOptionsContainer.style.display = 'block'
@@ -951,6 +967,7 @@ document.querySelector('.btn--print-options').addEventListener('click', async ()
   document.querySelector('#print-student-name').innerHTML = await getStudentName()
 })
 
+// Back button from print options page
 document.querySelector('.btn--print-options-back').addEventListener('click', () => {
   printOptionsContainer.style.display = 'none'
   entryContainer.style.display = 'block'
@@ -968,13 +985,14 @@ dateSelect.addEventListener('change', e => {
   printDate = e.target.value
 })
 
+// Generate print page
 const printPageAlert = document.querySelector('#print-page-alert')
 
 document.querySelector('.btn--print-submit').addEventListener('click', async () => {  
   const description = document.querySelector('#print-info')
 
   let entries  
-
+  // VALIDATION
   if (printDate == undefined) {
     printPageAlert.style.display = 'block'
     return printPageAlert.innerHTML = 'Please fill out all fields.'
@@ -1201,16 +1219,19 @@ document.querySelector('.btn--print-submit').addEventListener('click', async () 
   }
 })
 
+// Back button from the generated printed page
 document.querySelector('.btn--print-page-back').addEventListener('click', () => {
   document.querySelector('.container--print-page').style.display = 'none'
   printOptionsContainer.style.display = 'block'
 })
 
+// Convert dates into a specific format
 function convertDateFormat(initialDate) {
   const splitDate = initialDate.split('-')
   return `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`
 }
 
+// Generate the days in the week based on one date
 function generateWeekPeriod(initialDate) {
   const dateObj = new Date(convertDateFormat(initialDate))
   let dates = []
@@ -1265,6 +1286,7 @@ function generateWeekPeriod(initialDate) {
   return dates
 }
 
+// Generate oll dates in the month based off of one date
 function generateMonthPeriod(initialDate) {
   const dateObj = new Date(convertDateFormat(initialDate))
   const month = dateObj.getMonth()
@@ -1299,6 +1321,7 @@ async function getEntriesByDate(dates) {
   return entries
 }
 
+// Generates total hours for the printed page
 function generateTotalPrintHours(entries) {
   let total = 0
   for (let i = 0; i < entries.length; i++) {
@@ -1307,6 +1330,7 @@ function generateTotalPrintHours(entries) {
   return total
 }
 
+// Get student's name from database
 async function getStudentName() {
   const res = await axios.post('http://localhost:5000/get_student', { number: parseInt(currentStudentNum) })
   return res.data[0].student_info.name

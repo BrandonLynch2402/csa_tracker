@@ -42,3 +42,7 @@
 .container--print-page {
   display: none;
 }
+
+.container--help {
+  display: none;
+}
